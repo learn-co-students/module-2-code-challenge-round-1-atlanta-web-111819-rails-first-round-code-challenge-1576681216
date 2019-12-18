@@ -1,6 +1,14 @@
 <h2>All Heroines</h2>
 
+<%= form_tag filter_heroine_path, :method => :get do %>
+  <%= label_tag :power_id %>
+  <%= select_tag(:power_id, options_from_collection_for_select(Power.all, :id, :name)) %>
+
+  <%= submit_tag "Filter Heroines" %>
+<% end %>
+
 <ul>
+ 
   <% @heroines.each do |heroine| %>
     <li>
       <%= link_to heroine.super_name, heroine_path(heroine) %>

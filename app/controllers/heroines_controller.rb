@@ -1,11 +1,12 @@
 class HeroinesController < ApplicationController
-  before_action :get_heroine, only: [:show]
+  
   
   def index
     @heroines = Heroine.all
   end
 
   def show
+    @heroine = Heroine.find(params.require(:id))
   end
 
   def new
@@ -22,11 +23,12 @@ class HeroinesController < ApplicationController
     end
   end
 
-  private
-
-  def get_heroine
-    @heroine = Heroine.find(params.require(:id))
+  def filter
+    @heroines = Heroine.where('power_id = ?', params[:power_id])
+    render :index
   end
+
+  private
 
   def heroine_params
     params.require(:heroine).permit(:super_name, :name, :power_id)
